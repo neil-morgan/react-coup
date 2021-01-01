@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Lobby from "../Lobby/Lobby";
-import { LobbyAPI } from "../../LobbyAPI";
+import { api } from "../../LobbyAPI";
 import "./Home.scss";
-
-const api = new LobbyAPI();
 
 const Home = (props) => {
   const { history } = props;
@@ -78,7 +76,7 @@ const Home = (props) => {
     } catch (err) {
       /*
        * --- TO-DO: setErrMsg("room is full") here if that's the case. currently it's "room does not exist" in both cases ---
-       */ 
+       */
       setErrMsg("room does not exist!");
       setRoom("");
       document.getElementById("roomIdentification").value = "";

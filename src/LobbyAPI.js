@@ -43,18 +43,6 @@ export class LobbyAPI {
     }
   }
 
-  // POST /games/{name}/{id}/playAgain : play again
-  async playAgain(roomID, id, playerCredentials) {
-    try {
-      const res = await this.api
-        .post(roomID + "/playAgain", { json: { playerID: id, credentials: playerCredentials } })
-        .json();
-      return res.nextRoomID;
-    } catch (err) {
-      console.log("failed to play again:", err);
-    }
-  }
-
   // GET /games/{game_name}/{room_id} : get specific match by its matchID
   async getPlayers(roomID) {
     const res = await this.api.get(roomID).json();
@@ -69,3 +57,7 @@ export class LobbyAPI {
     return res;
   }
 }
+
+const api = new LobbyAPI();
+
+export { api };

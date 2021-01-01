@@ -6,11 +6,9 @@ import classNames from "classnames";
 import { DEFAULT_PORT, APP_PRODUCTION } from "../../config";
 import { Coup, Board } from "../../Game";
 import Lobby from "../Lobby/Lobby";
-import { LobbyAPI } from "../../LobbyAPI";
+import { api } from "../../LobbyAPI";
 
 import "./Room.scss";
-
-const api = new LobbyAPI();
 
 const { origin, protocol, hostname } = window.location;
 const SERVER_URL = APP_PRODUCTION ? origin : `${protocol}//${hostname}:${DEFAULT_PORT}`;

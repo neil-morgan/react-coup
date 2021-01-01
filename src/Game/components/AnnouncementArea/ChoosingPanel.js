@@ -3,9 +3,7 @@ import uniqid from "uniqid";
 import classNames from "classnames";
 import { cards } from "../../logic/cards";
 import "./ChoosingPanel.scss";
-import { LobbyAPI } from "../../../LobbyAPI";
-
-const api = new LobbyAPI();
+import { api } from "../../../LobbyAPI";
 
 const ChoosingPanel = ({ G, ctx, playerID, moves, gameID }) => {
   const [choices, setChoices] = useState([]);
