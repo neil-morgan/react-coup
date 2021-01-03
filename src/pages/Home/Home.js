@@ -6,7 +6,7 @@ import "./Home.scss";
 const Home = (props) => {
   const { history } = props;
   const maxNameLength = 12;
-  const roomIDLength = 9;
+  const roomIDLength = 6;
 
   const [room, setRoom] = useState("");
   const [jName, setJName] = useState("");
