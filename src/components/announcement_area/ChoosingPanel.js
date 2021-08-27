@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import uniqid from "uniqid";
 import classNames from "classnames";
-import { cards } from "../../logic/cards";
-import { api } from "../../../server";
+import { cards } from "../../environment/cards";
+import { api } from "../../server";
 
 const ChoosingPanel = ({ G, ctx, playerID, moves, gameID }) => {
   const [choices, setChoices] = useState([]);

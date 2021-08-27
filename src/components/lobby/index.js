@@ -4,7 +4,7 @@ import { api } from "../../server";
 import { CreateGame } from "./CreateGame";
 import { JoinGame } from "./JoinGame";
 
-export const Lobby = ({ history }) => {
+const Lobby = ({ history }) => {
   const maxNameLength = 12;
   const roomIDLength = 6;
 
@@ -120,3 +120,5 @@ export const Lobby = ({ history }) => {
 const ErrorMessage = ({ errMsg }) => {
   return <Flex>{errMsg}</Flex>;
 };
+
+export default Lobby;

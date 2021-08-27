@@ -3,7 +3,7 @@ import {
   logStats,
   resetResponses,
   checkForWinner,
-} from "./logic/actions/helper";
+} from "./actions/helper";
 import {
   prepAction,
   setTarget,
@@ -11,7 +11,7 @@ import {
   revealCard,
   loseCardAndShuffle,
   continueTurn,
-} from "./logic/actions/intermediary";
+} from "./actions/intermediary";
 import {
   income,
   coup,
@@ -19,7 +19,7 @@ import {
   allow,
   block,
   initiateChallenge,
-} from "./logic/actions/main";
+} from "./actions/main";
 import {
   message,
   changeNames,
@@ -27,9 +27,9 @@ import {
   leave,
   playAgain,
   setNewRoom,
-} from "./logic/actions/misc";
-import { initializeGame, getPlayOrder } from "./logic/initializer";
-import { getTurnMsg } from "./logic/messageBuilder";
+} from "./actions/misc";
+import { initializeGame, getPlayOrder } from "./initializer";
+import { getTurnMsg } from "./messageBuilder";
 import { GAME_NAME } from "../server/config";
 
 /* ---- Setup ---- */
@@ -69,7 +69,7 @@ const setup = ({ numPlayers }) => {
   };
 };
 
-export const Coup = {
+const Coup = {
   name: `${GAME_NAME}`,
   minPlayers: 2,
   maxPlayers: 8,
@@ -155,3 +155,5 @@ export const Coup = {
     },
   },
 };
+
+export default Coup;

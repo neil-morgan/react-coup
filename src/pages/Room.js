@@ -4,7 +4,8 @@ import { Client } from "boardgame.io/react";
 import { SocketIO } from "boardgame.io/multiplayer";
 import classNames from "classnames";
 import { DEFAULT_PORT, APP_PRODUCTION } from "../server/config";
-import { Coup, Board } from "../Game";
+import Coup from "../environment";
+import Board from "../components/board/Board";
 import { api } from "../server";
 
 const { origin, protocol, hostname } = window.location;

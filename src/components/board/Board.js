@@ -6,7 +6,7 @@ import {
   BottomBar,
   AnnouncementArea,
   ChatLogSettings,
-} from "./components";
+} from "..";
 
 const Board = (props) => {
   const [revealDeck, setRevealDeck] = useState(false);

@@ -21,10 +21,10 @@ export const JoinGame = ({
       rounded={5}
       p={6}
     >
-      <Heading textStyle="heading" size="lg">
+      <Heading textStyle="heading" size="lg" mb={8}>
         Join A Game
       </Heading>
-      <Flex direction="column" w="full" my={4}>
+      <Flex direction="column" w="full" mb={4}>
         <Text mb={2}>Game ID:</Text>
 
         <Input

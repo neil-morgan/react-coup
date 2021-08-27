@@ -1,5 +1,5 @@
 import { Server, FlatFile } from "boardgame.io/server";
-import { Coup } from "../Game/Game";
+import Coup from "../environment";
 import { customAlphabet } from "nanoid";
 import path from "path";
 import serve from "koa-static";
