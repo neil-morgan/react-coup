@@ -1,31 +1,40 @@
-import React from "react";
-import uniqid from "uniqid";
-
-import "./GameView.scss";
+import React from "react"
+import uniqid from "uniqid"
 
 const statsHdrs = [
   "Action",
-  <span className="successful-color">✔</span>,
-  <span className="unsuccessful-color">✘</span>,
-  <span className="counteraction-color">⚒</span>,
-  <span className="counteraction-color">⚔</span>,
-];
+  <span key={uniqid()} className="successful-color">
+    ✔
+  </span>,
+  <span key={uniqid()} className="unsuccessful-color">
+    ✘
+  </span>,
+  <span key={uniqid()} className="counteraction-color">
+    ⚒
+  </span>,
+  <span key={uniqid()} className="counteraction-color">
+    ⚔
+  </span>,
+]
 
 const GameView = ({ G, playerID, revealDeck, setRevealDeck }) => {
-  const player = G.players[playerID];
+  const player = G.players[playerID]
 
   const updateReveal = () => {
-    setRevealDeck(!revealDeck);
-  };
+    setRevealDeck(!revealDeck)
+  }
 
   const deckView = (
     <>
-      <button className={revealDeck ? "btn-selected" : "btn-unselected"} onClick={() => updateReveal()}>
+      <button
+        className={revealDeck ? "btn-selected" : "btn-unselected"}
+        onClick={() => updateReveal()}
+      >
         {revealDeck ? "hide" : "reveal"} deck
       </button>
       <div>click on a player to reveal/hide their hand</div>
     </>
-  );
+  )
 
   return (
     <div className="gameview-container">
@@ -47,7 +56,7 @@ const GameView = ({ G, playerID, revealDeck, setRevealDeck }) => {
                   </td>
                 ))}
               </tr>
-            );
+            )
           })}
         </tbody>
       </table>
@@ -67,7 +76,7 @@ const GameView = ({ G, playerID, revealDeck, setRevealDeck }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default GameView;
+export default GameView

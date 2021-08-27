@@ -1,4 +1,9 @@
-import { logTurn, logStats, resetResponses, checkForWinner } from "./logic/actions/helper";
+import {
+  logTurn,
+  logStats,
+  resetResponses,
+  checkForWinner,
+} from "./logic/actions/helper"
 import {
   prepAction,
   setTarget,
@@ -6,16 +11,30 @@ import {
   revealCard,
   loseCardAndShuffle,
   continueTurn,
-} from "./logic/actions/intermediary";
-import { income, coup, executeAction, allow, block, initiateChallenge } from "./logic/actions/main";
-import { message, changeNames, endTurn, leave, playAgain, setNewRoom } from "./logic/actions/misc";
-import { initializeGame, getPlayOrder } from "./logic/initializer";
-import { getTurnMsg } from "./logic/messageBuilder";
-import { GAME_NAME } from "../config";
+} from "./logic/actions/intermediary"
+import {
+  income,
+  coup,
+  executeAction,
+  allow,
+  block,
+  initiateChallenge,
+} from "./logic/actions/main"
+import {
+  message,
+  changeNames,
+  endTurn,
+  leave,
+  playAgain,
+  setNewRoom,
+} from "./logic/actions/misc"
+import { initializeGame, getPlayOrder } from "./logic/initializer"
+import { getTurnMsg } from "./logic/messageBuilder"
+import { GAME_NAME } from "../config"
 
 /* ---- Setup ---- */
 const setup = ({ numPlayers }) => {
-  const { deck, players } = initializeGame(numPlayers);
+  const { deck, players } = initializeGame(numPlayers)
 
   // initialize game state G
   return {
@@ -47,8 +66,8 @@ const setup = ({ numPlayers }) => {
       ["exchange", 0, 0, "—", 0],
     ],
     chat: [],
-  };
-};
+  }
+}
 
 export const Coup = {
   name: `${GAME_NAME}`,
@@ -57,23 +76,37 @@ export const Coup = {
   setup: setup,
   turn: {
     onBegin: (G, ctx) => {
-      logTurn(G.turnLog, "", {}, false, {}, {}, {}, resetResponses(ctx.numPlayers), {});
-      ctx.events.setActivePlayers({ currentPlayer: "action", others: "idle" });
+      logTurn(
+        G.turnLog,
+        "",
+        {},
+        false,
+        {},
+        {},
+        {},
+        resetResponses(ctx.numPlayers),
+        {}
+      )
+      ctx.events.setActivePlayers({ currentPlayer: "action", others: "idle" })
     },
-    onEnd: (G, ctx) => {
-      logStats(G.turnLog, G.statistics);
-      G.chat.push({ id: "-1", content: getTurnMsg(G.turnLog), successful: G.turnLog.successful });
-      checkForWinner(G);
+    onEnd: (G) => {
+      logStats(G.turnLog, G.statistics)
+      G.chat.push({
+        id: "-1",
+        content: getTurnMsg(G.turnLog),
+        successful: G.turnLog.successful,
+      })
+      checkForWinner(G)
     },
     order: {
-      first: (G, ctx) => 0,
+      first: () => 0,
       // find the next player who has cards (skip over players who are out)
       next: ({ players }, { numPlayers, playOrder, playOrderPos }) => {
         for (let i = 1; i <= numPlayers; i++) {
-          const nextIndex = (playOrderPos + i) % numPlayers;
-          const nextPlayer = playOrder[nextIndex];
+          const nextIndex = (playOrderPos + i) % numPlayers
+          const nextPlayer = playOrder[nextIndex]
           if (!players[nextPlayer].isOut) {
-            return nextIndex;
+            return nextIndex
           }
         }
       },
@@ -121,4 +154,4 @@ export const Coup = {
       },
     },
   },
-};
+}
