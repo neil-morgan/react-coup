@@ -1,11 +1,13 @@
 import { GAME_NAME, DEFAULT_PORT, APP_PRODUCTION } from "./config";
-import ky from "ky"; // HTTP client I'm using (saw other people use it, looks like it works fine, and it's pretty simple to use)
+import ky from "ky";
 
 const { origin, protocol, hostname } = window.location;
-const SERVER_URL = APP_PRODUCTION ? origin : `${protocol}//${hostname}:${DEFAULT_PORT}`;
+const SERVER_URL = APP_PRODUCTION
+  ? origin
+  : `${protocol}//${hostname}:${DEFAULT_PORT}`;
 
 // Make HTTP requests (HTTP method, URL endpoint: description) to boardgame.io Lobby REST API
-export class LobbyAPI {
+export class CreateApi {
   // create a ky instance
   constructor() {
     this.api = ky.create({
@@ -14,9 +16,12 @@ export class LobbyAPI {
   }
 
   // POST /games/{game_name}/create : create a match
+
   async createRoom(numPlayers) {
     try {
-      const res = await this.api.post("create", { json: { numPlayers: numPlayers } }).json();
+      const res = await this.api
+        .post("create", { json: { numPlayers: numPlayers } })
+        .json();
       return res.gameID;
     } catch (err) {
       console.log("failed to create room:", err);
@@ -26,7 +31,9 @@ export class LobbyAPI {
   // POST /games/{game_name}/{room_id}/join : join a match
   async joinRoom(roomID, id, name) {
     try {
-      const res = await this.api.post(roomID + "/join", { json: { playerID: id, playerName: name } }).json();
+      const res = await this.api
+        .post(roomID + "/join", { json: { playerID: id, playerName: name } })
+        .json();
       const { playerCredentials } = res;
       return playerCredentials;
     } catch (err) {
@@ -37,7 +44,11 @@ export class LobbyAPI {
   // POST /games/{game_name}/{room_id}/leave : leave a match
   async leaveRoom(roomID, id, playerCredentials) {
     try {
-      await this.api.post(roomID + "/leave", { json: { playerID: id, credentials: playerCredentials } }).json();
+      await this.api
+        .post(roomID + "/leave", {
+          json: { playerID: id, credentials: playerCredentials },
+        })
+        .json();
     } catch (err) {
       console.log("failed to leave room:", err);
     }
@@ -58,6 +69,6 @@ export class LobbyAPI {
   }
 }
 
-const api = new LobbyAPI();
+const api = new CreateApi();
 
-export { api };
+export default api;

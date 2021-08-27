@@ -3,7 +3,7 @@ import {
   logStats,
   resetResponses,
   checkForWinner,
-} from "./logic/actions/helper"
+} from "./logic/actions/helper";
 import {
   prepAction,
   setTarget,
@@ -11,7 +11,7 @@ import {
   revealCard,
   loseCardAndShuffle,
   continueTurn,
-} from "./logic/actions/intermediary"
+} from "./logic/actions/intermediary";
 import {
   income,
   coup,
@@ -19,7 +19,7 @@ import {
   allow,
   block,
   initiateChallenge,
-} from "./logic/actions/main"
+} from "./logic/actions/main";
 import {
   message,
   changeNames,
@@ -27,14 +27,14 @@ import {
   leave,
   playAgain,
   setNewRoom,
-} from "./logic/actions/misc"
-import { initializeGame, getPlayOrder } from "./logic/initializer"
-import { getTurnMsg } from "./logic/messageBuilder"
-import { GAME_NAME } from "../config"
+} from "./logic/actions/misc";
+import { initializeGame, getPlayOrder } from "./logic/initializer";
+import { getTurnMsg } from "./logic/messageBuilder";
+import { GAME_NAME } from "../server/config";
 
 /* ---- Setup ---- */
 const setup = ({ numPlayers }) => {
-  const { deck, players } = initializeGame(numPlayers)
+  const { deck, players } = initializeGame(numPlayers);
 
   // initialize game state G
   return {
@@ -66,8 +66,8 @@ const setup = ({ numPlayers }) => {
       ["exchange", 0, 0, "—", 0],
     ],
     chat: [],
-  }
-}
+  };
+};
 
 export const Coup = {
   name: `${GAME_NAME}`,
@@ -86,31 +86,31 @@ export const Coup = {
         {},
         resetResponses(ctx.numPlayers),
         {}
-      )
-      ctx.events.setActivePlayers({ currentPlayer: "action", others: "idle" })
+      );
+      ctx.events.setActivePlayers({ currentPlayer: "action", others: "idle" });
     },
     onEnd: (G) => {
-      logStats(G.turnLog, G.statistics)
+      logStats(G.turnLog, G.statistics);
       G.chat.push({
         id: "-1",
         content: getTurnMsg(G.turnLog),
         successful: G.turnLog.successful,
-      })
-      checkForWinner(G)
+      });
+      checkForWinner(G);
     },
     order: {
       first: () => 0,
       // find the next player who has cards (skip over players who are out)
       next: ({ players }, { numPlayers, playOrder, playOrderPos }) => {
         for (let i = 1; i <= numPlayers; i++) {
-          const nextIndex = (playOrderPos + i) % numPlayers
-          const nextPlayer = playOrder[nextIndex]
+          const nextIndex = (playOrderPos + i) % numPlayers;
+          const nextPlayer = playOrder[nextIndex];
           if (!players[nextPlayer].isOut) {
-            return nextIndex
+            return nextIndex;
           }
         }
       },
-      playOrder: (G, { numPlayers }) => getPlayOrder(numPlayers),
+      playOrder: (_, { numPlayers }) => getPlayOrder(numPlayers),
     },
 
     stages: {
@@ -154,4 +154,4 @@ export const Coup = {
       },
     },
   },
-}
+};

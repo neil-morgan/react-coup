@@ -1,77 +1,77 @@
-import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { Client } from "boardgame.io/react"
-import { SocketIO } from "boardgame.io/multiplayer"
-import classNames from "classnames"
-import { DEFAULT_PORT, APP_PRODUCTION } from "../../config"
-import { Coup, Board } from "../../Game"
-import { api } from "../../LobbyAPI"
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Client } from "boardgame.io/react";
+import { SocketIO } from "boardgame.io/multiplayer";
+import classNames from "classnames";
+import { DEFAULT_PORT, APP_PRODUCTION } from "../config";
+import { Coup, Board } from "../Game";
+import { api } from "../server";
 
-const { origin, protocol, hostname } = window.location
+const { origin, protocol, hostname } = window.location;
 const SERVER_URL = APP_PRODUCTION
   ? origin
-  : `${protocol}//${hostname}:${DEFAULT_PORT}`
+  : `${protocol}//${hostname}:${DEFAULT_PORT}`;
 
 const CoupClient = Client({
   game: Coup,
   board: Board,
   debug: false,
   multiplayer: SocketIO({ server: SERVER_URL }),
-})
+});
 
 const Room = (props) => {
-  const { history } = props
-  const { id } = useParams()
-  const [copied, setCopied] = useState(false)
-  const [players, setPlayers] = useState([])
-  const [show, setShow] = useState(false)
+  const { history } = props;
+  const { id } = useParams();
+  const [copied, setCopied] = useState(false);
+  const [players, setPlayers] = useState([]);
+  const [show, setShow] = useState(false);
 
   // check for newly joined players by comparing against the two players array (front-end and the api, and api is always slightly ahead)
   useEffect(() => {
     const interval = setInterval(() => {
       api.getPlayers(id).then(
         (players) => {
-          setPlayers(players)
-          const currPlayers = players.filter((player) => player.name) // only current players have a name field
+          setPlayers(players);
+          const currPlayers = players.filter((player) => player.name); // only current players have a name field
           if (currPlayers.length === players.length) {
-            setShow(true) // everyone has joined, show them the board
+            setShow(true); // everyone has joined, show them the board
           }
         },
         () => {
-          history.push("", { invalidRoom: true }) // failed to join because room doesn't exist -> return user to homepage
+          history.push("", { invalidRoom: true }); // failed to join because room doesn't exist -> return user to homepage
         }
-      )
-    }, 500)
+      );
+    }, 500);
     if (show) {
-      clearInterval(interval)
+      clearInterval(interval);
     }
     return () => {
-      clearInterval(interval)
-    }
-  }, [show, players.length, id, history])
+      clearInterval(interval);
+    };
+  }, [show, players.length, id, history]);
 
   // after user copies to clipboard
   useEffect(() => {
-    let timeout
+    let timeout;
     if (copied) {
       timeout = setTimeout(() => {
         if (document.getSelection().toString() === id) {
-          document.getSelection().removeAllRanges()
+          document.getSelection().removeAllRanges();
         }
-        setCopied(false)
-      }, 3000)
+        setCopied(false);
+      }, 3000);
     }
 
-    return () => clearTimeout(timeout)
-  }, [copied, id])
+    return () => clearTimeout(timeout);
+  }, [copied, id]);
 
   const copyToClipboard = (e) => {
-    const textArea = document.getElementById("roomID")
-    textArea.select()
-    document.execCommand("copy")
-    e.target.focus()
-    setCopied(true)
-  }
+    const textArea = document.getElementById("roomID");
+    textArea.select();
+    document.execCommand("copy");
+    e.target.focus();
+    setCopied(true);
+  };
 
   const leaveRoom = () => {
     api
@@ -81,9 +81,9 @@ const Room = (props) => {
         localStorage.getItem("credentials")
       )
       .then(() => {
-        history.push("/")
-      })
-  }
+        history.push("/");
+      });
+  };
 
   if (show) {
     // don't include lobby because game doesn't show game title, game credits... it's fullscreen.
@@ -94,7 +94,7 @@ const Room = (props) => {
         playerID={localStorage.getItem("id")}
         credentials={localStorage.getItem("credentials")}
       />
-    )
+    );
   } else {
     return (
       <>
@@ -107,9 +107,9 @@ const Room = (props) => {
                 `${
                   player.name === localStorage.getItem("name") ? " (You)" : ""
                 }\n`
-              )
+              );
             } else {
-              return "...\n"
+              return "...\n";
             }
           })}
         </div>
@@ -135,8 +135,8 @@ const Room = (props) => {
           </button>
         </div>
       </>
-    )
+    );
   }
-}
+};
 
-export default Room
+export default Room;

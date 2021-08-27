@@ -1,9 +1,9 @@
 import { Server, FlatFile } from "boardgame.io/server";
-import { Coup } from "./src/Game/Game";
+import { Coup } from "../Game/Game";
 import { customAlphabet } from "nanoid";
 import path from "path";
 import serve from "koa-static";
-import { DEFAULT_PORT } from "./src/config";
+import { DEFAULT_PORT } from "./config";
 
 const server = Server({
   games: [Coup],

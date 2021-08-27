@@ -24,8 +24,8 @@
     "uniqid": "^5.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "serve": "node -r esm server.js",
+    "client": "react-scripts start",
+    "server": "node -r esm src/server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

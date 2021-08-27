@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Stack, Flex } from "@chakra-ui/react";
-import { api } from "./api";
-
+import { api } from "../../server";
 import { CreateGame } from "./CreateGame";
 import { JoinGame } from "./JoinGame";
 
