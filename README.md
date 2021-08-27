@@ -1,7 +1,5 @@
 # Online Coup
 
-**Link to play:** https://online-coup.herokuapp.com/
-
 ## About
 
 This version of Coup can be played online with 2-8 players and features a lobby, player chat, turn log, and action statistics. <br>
