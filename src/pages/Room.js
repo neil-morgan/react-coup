@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Client } from "boardgame.io/react";
 import { SocketIO } from "boardgame.io/multiplayer";
 import classNames from "classnames";
-import { DEFAULT_PORT, APP_PRODUCTION } from "../config";
+import { DEFAULT_PORT, APP_PRODUCTION } from "../server/config";
 import { Coup, Board } from "../Game";
 import { api } from "../server";
 

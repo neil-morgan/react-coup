@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Lobby } from "../../components";
+import { Lobby } from "../components";
 
 const Home = ({ history }) => {
   // const [errMsg, setErrMsg] = useState("")
